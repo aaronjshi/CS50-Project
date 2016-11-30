@@ -4,8 +4,13 @@
 	"description": "Queries the web for weather at user's current location and recommends what user should wear",
 	"version": "1.0",
 
+	"permissions": [
+		"geolocation"
+	],
+
 	"browser_action": {
-		"icons": {"48": "icon48.png", "128": "icon128.png" },
+		"icons": {"48": "icon48.png",
+				 "128": "icon128.png" },
 		"default_icon": "icon128.png",
 		"default_title": "Check the weather!",
 		"default_popup": "popup.html"
