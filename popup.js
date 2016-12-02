@@ -15,8 +15,6 @@ window.onload = function() {
 		startPos = position;
 		lat = startPos.coords.latitude;
 		long = startPos.coords.longitude;
-		
-		document.getElementById("startLat").innerHTML = lat;
 
 		// call getWeather function (see below)
 		getWeather(lat, long);
@@ -34,33 +32,34 @@ window.onload = function() {
 
 	// get weather conditions in current location
 	function getWeather(lat, long) {
-		var API_key = "8e89558cffdf7c1a";
-		var url = "http://api.wunderground.com/api/" + API_key + "/geolookup/conditions/q/" + lat + "," + long + ".json";
-		document.getElementById('demo').innerHTML = url;
+		var API_key = "6e62c94aa3edb1a5"; // alternate API_key = "8e89558cffdf7c1a
+		var url = "http://api.wunderground.com/api/" + API_key + "/geolookup/forecast/conditions/q/" + lat + "," + long + ".json";
 
 		$(document).ready(function() {
-			console.log("test");
 			$.ajax({
-		 
-		    // The URL for the request
-		    url: url,
-		    //"http://api.wunderground.com/api/8e89558cffdf7c1a/geolookup/conditions/q/IA/Cedar_Rapids.json",
-		 
-		    // Whether this is a POST or GET request
-		    type: "GET",
-		 
-		    // The type of data we expect back
-		    dataType : "json",
+			// The URL for the request
+			url: url,
+			// Whether this is a POST or GET request
+			type: "GET",
+			// The type of data we expect back
+			dataType : "json",
 			})
-		  
+
 			// Code to run if the request succeeds (is done);
 			// the response is passed to the function
 			.done(function(json) {
-				var location = json['location']['city'];
+				var state = json['location']['state'];
+				var city = json['location']['city'];
+				//var img_src = json['current_observation']['icon_url'];
 				var temp_f = json['current_observation']['temp_f'];
-				alert("Current temperature in " + location + " is: " + temp_f);
+				var chancePrecipitation = json['forecast']['txt_forecast']['forecastday'][0]['pop'];
+				var feelsLike = json['current_observation']['feelslike_f'];
 
-				document.getElementById('demo').innerHTML = temp_f;
+				//document.getElementById('img_src').src = img_src;
+				document.getElementById('city,state').innerHTML = city + ", " + state;
+				document.getElementById('temperature').innerHTML = "Temperature (F): " + temp_f + "\xB0, feels like " + feelsLike + "\xB0";
+				document.getElementById('CoP').innerHTML = "Chance of precipitation: " + chancePrecipitation + "%";
+
 			})
 	 
 			.fail(function( xhr, status, errorThrown ) {
@@ -68,6 +67,8 @@ window.onload = function() {
 			})
 		})
 	};
+
+
 
 };
 
