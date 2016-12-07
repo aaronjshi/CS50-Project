@@ -49,6 +49,11 @@ window.onload = function() {
 			// the response is passed to the function
 			.done(function(json) {
 				var state = json['location']['state'];
+					// if json returns empty
+					if (typeof(state) == 'undefined')
+					{
+						alert( "Sorry, the weather information is updating. We'll be back in a few moments!" );
+					}
 				var city = json['location']['city'];
 				var img_src = json['current_observation']['icon_url'];
 				var temp_f = json['current_observation']['temp_f'];
@@ -66,7 +71,7 @@ window.onload = function() {
 
 
 				var top;
-				var bot;
+				var bottom;
 				var jacket;
 				var str;
 				var precip;
@@ -74,22 +79,29 @@ window.onload = function() {
 				// top layer
 				if (feelsLike >= 60) {
 					top = "T-shirt";
+					// display icon
+					$('#clothes2').attr("src", "shirt2.png");
 				}
 				else if (feelsLike >= 50) {
 					top = "long sleeve";
+					$('#clothes2').attr("src", "longsleeves.png");
 				}
 				else {
-					top = "sweater/fleece pullover";
+					top = "sweater";
+					$('#clothes2').attr("src", "sweater.png");
 				}
 				// bottom layer
 				if (feelsLike >= 65) {
-					bot = "shorts";
+					bottom = "shorts";
+					$('#clothes1').attr("src", "shorts.png");
 				}
 				else if (feelsLike >= 30) {
-					bot = "long pants";
+					bottom = "long pants";
+					$('#clothes1').attr("src", "longpants.png");
 				}
 				else {
-					bot = "long pants, baselayer";
+					bottom = "a baselayer under your long pants";
+					$('#clothes1').attr("src", "longpants.png");
 				}
 				// jacket
 				if (feelsLike >= 60) {
@@ -97,12 +109,15 @@ window.onload = function() {
 				}
 				else if (feelsLike >= 45) {
 					jacket = "light jacket";
+					$('#clothes3').attr("src", "lightjacket.png");
 				}
 				else if (feelsLike >= 30) {
 					jacket = "heavy jacket";
+					$('#clothes3').attr("src", "heavyjacket.png");
 				}
 				else {
 					jacket = "snow jacket";
+					$('#clothes3').attr("src", "heavyjacket.png");
 				}
 
 				if (feelsLike >= 90) {
@@ -124,7 +139,7 @@ window.onload = function() {
 					str = "really cold";
 				}
 
-				document.getElementById('string').innerHTML = "It's " + str + "! Wear a " + top + ", " + bot + ", and a " + jacket + ".";
+				document.getElementById('string').innerHTML = "It's " + str + "! Wear a " + top + ", " + jacket + ", and " + bottom + ".";
 			})
 	 
 			.fail(function( xhr, status, errorThrown ) {
