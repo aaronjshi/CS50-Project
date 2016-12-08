@@ -162,7 +162,7 @@ window.onload = function() {
 				}
 				
 				// print final recommendations to html
-				document.getElementById('string').innerHTML = "It's " + str + " outside. Wear a " + top + ", " + bottom + ", and a " + jacket + ". " + rain + snow;
+				document.getElementById('string').innerHTML = "It's " + str + " outside. Wear a " + top + ", a " + jacket + ", and " + bottom + ". " + rain + snow;
 			})
 	 
 			// in case of error
