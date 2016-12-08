@@ -1,7 +1,7 @@
 {
 	"manifest_version": 2,
 	"name": "Sweater Weather",
-	"description": "Displays the weather conditions at your current location and gives you recommendations for what to wear.",
+	"description": "Checks the weather at your current location and recommends what to wear based on the conditions outside.",
 	"version": "1.0",
 	
 	"icons": {
