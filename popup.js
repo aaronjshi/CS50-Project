@@ -64,10 +64,11 @@ window.onload = function() {
 
 				$('#img_src').attr("src", img_src);
 				document.getElementById('city,state').innerHTML = city + ", " + state;
-				document.getElementById('temperature').innerHTML = "Temperature (F): " + temp_f + "\xB0, feels like " + feelsLike + "\xB0";
-				document.getElementById('humidity').innerHTML = "Humidity: " + humidity;
-				document.getElementById('CoP').innerHTML = "Precipitation: " + chancePrecipitation + "%";
-				document.getElementById('wind').innerHTML = "Wind: " + wind + " mph";
+				document.getElementById('temperature').innerHTML = temp_f + "\xB0";
+				document.getElementById('feels_like').innerHTML = "(feels like " + feelsLike + "\xB0)";
+				document.getElementById('humidity').innerHTML = humidity;
+				document.getElementById('CoP').innerHTML = chancePrecipitation + "%";
+				document.getElementById('wind').innerHTML = wind + " mph";
 
 
 				var top;
