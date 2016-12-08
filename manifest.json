@@ -1,17 +1,18 @@
 {
 	"manifest_version": 2,
-	"name": "Weather Extension",
-	"description": "Queries the web for weather at user's current location and recommends what user should wear",
+	"name": "Sweater Weather",
+	"description": "Displays the weather conditions at your current location and gives you recommendations for what to wear.",
 	"version": "1.0",
-
+	
+	"icons": {
+		"128": "icon128.png" 
+	},
+	
 	"permissions": [
 		"geolocation"
 	],
 
 	"browser_action": {
-		"icons": {"48": "icon48.png",
-				 "128": "icon128.png" },
-		"default_icon": "icon128.png",
 		"default_title": "Check the weather!",
 		"default_popup": "popup.html"
 	}
