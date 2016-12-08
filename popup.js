@@ -32,22 +32,23 @@ window.onload = function() {
 
 	// get weather conditions in current location
 	function getWeather(lat, long) {
-		var API_key = "6e62c94aa3edb1a5"; // alternate API_key = "8e89558cffdf7c1a
-		var url = "http://api.wunderground.com/api/" + API_key + "/geolookup/forecast/conditions/q/" + lat + "," + long + ".json";
+		var API_key = "6e62c94aa3edb1a5"; // alternate API_key = "8e89558cffdf7c1a"
+		var url = "http://api.wunderground.com/api/" + "8e89558cffdf7c1a" + "/geolookup/forecast/conditions/q/" + lat + "," + long + ".json";
 
 		$(document).ready(function() {
 			$.ajax({
-			// The URL for the request
-			url: url,
-			// Whether this is a POST or GET request
-			type: "GET",
-			// The type of data we expect back
-			dataType : "json",
+		    // The URL for the request
+		    url: url,
+		    // Whether this is a POST or GET request
+		    type: "GET",
+		    // The type of data we expect back
+		    dataType : "json",
 			})
-
+		  
 			// Code to run if the request succeeds (is done);
 			// the response is passed to the function
 			.done(function(json) {
+				// get information from json file from wunderground
 				var state = json['location']['state'];
 					// if json returns empty
 					if (typeof(state) == 'undefined')
@@ -62,47 +63,49 @@ window.onload = function() {
 				var humidity = json['current_observation']['relative_humidity'];
 				var wind = json['current_observation']['wind_gust_mph'];
 
+				// write information to html
 				$('#img_src').attr("src", img_src);
 				document.getElementById('city,state').innerHTML = city + ", " + state;
-				document.getElementById('temperature').innerHTML = temp_f + "\xB0";
+				document.getElementById('temperature').innerHTML = temp_f + "\xB0"
 				document.getElementById('feels_like').innerHTML = "(feels like " + feelsLike + "\xB0)";
 				document.getElementById('humidity').innerHTML = humidity;
 				document.getElementById('CoP').innerHTML = chancePrecipitation + "%";
 				document.getElementById('wind').innerHTML = wind + " mph";
-
-
+			
+				// variables for clothing recommendations
 				var top;
 				var bottom;
 				var jacket;
 				var str;
 				var precip;
 
+				// make clothing recommendations
 				// top layer
 				if (feelsLike >= 60) {
 					top = "T-shirt";
 					// display icon
-					$('#clothes2').attr("src", "shirt2.png");
+					$('#clothes1').attr("src", "shirt2.png");
 				}
 				else if (feelsLike >= 50) {
 					top = "long sleeve";
-					$('#clothes2').attr("src", "longsleeves.png");
+					$('#clothes1').attr("src", "longsleeves.png");
 				}
 				else {
 					top = "sweater";
-					$('#clothes2').attr("src", "sweater.png");
+					$('#clothes1').attr("src", "sweater.png");
 				}
 				// bottom layer
 				if (feelsLike >= 65) {
 					bottom = "shorts";
-					$('#clothes1').attr("src", "shorts.png");
+					$('#clothes3').attr("src", "shorts.png");
 				}
 				else if (feelsLike >= 30) {
 					bottom = "long pants";
-					$('#clothes1').attr("src", "longpants.png");
+					$('#clothes3').attr("src", "longpants.png");
 				}
 				else {
 					bottom = "a baselayer under your long pants";
-					$('#clothes1').attr("src", "longpants.png");
+					$('#clothes3').attr("src", "longpants.png");
 				}
 				// jacket
 				if (feelsLike >= 60) {
@@ -110,17 +113,18 @@ window.onload = function() {
 				}
 				else if (feelsLike >= 45) {
 					jacket = "light jacket";
-					$('#clothes3').attr("src", "lightjacket.png");
+					$('#clothes2').attr("src", "lightjacket.png");
 				}
 				else if (feelsLike >= 30) {
 					jacket = "heavy jacket";
-					$('#clothes3').attr("src", "heavyjacket.png");
+					$('#clothes2').attr("src", "heavyjacket.png");
 				}
 				else {
 					jacket = "snow jacket";
-					$('#clothes3').attr("src", "heavyjacket.png");
+					$('#clothes2').attr("src", "heavyjacket.png");
 				}
 
+				// descriptive string
 				if (feelsLike >= 90) {
 					str = "really hot";
 				}
@@ -140,16 +144,16 @@ window.onload = function() {
 					str = "really cold";
 				}
 
+				// print final recommendations to html
 				document.getElementById('string').innerHTML = "It's " + str + "! Wear a " + top + ", " + jacket + ", and " + bottom + ".";
 			})
 	 
+			// in case of error
 			.fail(function( xhr, status, errorThrown ) {
 			    alert( "Sorry, there was a problem!" );
-			    console.log("Error");
 			})
 		})
 	};
-
 
 
 };
