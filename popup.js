@@ -1,5 +1,3 @@
-// var geolocation_API_key = "AIzaSyBaHJ6Z-Xf7XeZ9wCcwBXXNADq6OPh8BOE";
-
 window.onload = function() {
 	
 	var lat;
@@ -62,6 +60,8 @@ window.onload = function() {
 				var feelsLike = json['current_observation']['feelslike_f'];
 				var humidity = json['current_observation']['relative_humidity'];
 				var wind = json['current_observation']['wind_gust_mph'];
+				var icon = json['current_observation']['icon'];
+
 
 				// write information to html
 				$('#img_src').attr("src", img_src);
@@ -78,8 +78,9 @@ window.onload = function() {
 				var jacket;
 				var str;
 				var precip;
+				var snow;
 
-				// make clothing recommendations
+				// definitions of suggestion parameters
 				// top layer
 				if (feelsLike >= 60) {
 					top = "T-shirt";
@@ -144,8 +145,24 @@ window.onload = function() {
 					str = "really cold";
 				}
 
+				// in the case of rain
+				if (chancePrecipitation >= 80) {
+					rain = "Also, bring an umbrella! ";
+				}
+				else {
+					rain = "";
+				}
+
+				// in the case of snow
+				if (icon == 'snow') {
+					snow = "It's also snowing.";
+				}
+				else {
+					snow = "";
+				}
+				
 				// print final recommendations to html
-				document.getElementById('string').innerHTML = "It's " + str + "! Wear a " + top + ", " + jacket + ", and " + bottom + ".";
+				document.getElementById('string').innerHTML = "It's " + str + " outside. Wear a " + top + ", " + bottom + ", and a " + jacket + ". " + rain + snow;
 			})
 	 
 			// in case of error
